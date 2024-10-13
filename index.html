@@ -46,13 +46,20 @@
 		}
 
 		function getWAVBlob() {
-			const WAVBlob = recorder.getWAVBlob()
-			console.log('getWAVBlob', WAVBlob)
+			const audioBlob = recorder.getWAVBlob()
+			const formData = new FormData()
+			// 当你在前端代码中设置 Blob 对象的类型时，使用 type: 'audio/mpeg' 是告诉浏览器或服务器这个 Blob 包含的是遵循 MPEG 标准的音频数据。
+			// 这对于确保文件被正确处理（例如，在上传时被正确解析和存储，或在下载时被赋予正确的文件扩展名和关联的应用程序）是非常重要的
+			// 然而，需要注意的是，不是所有的音频文件都是 MP3（即 audio/mpeg）。
+			// 其他常见的音频 MIME 类型包括 audio/wav（WAV 文件），audio/ogg（Ogg Vorbis 文件），audio/aac（AAC 文件）等。
+			// 因此，在选择 MIME 类型时，你应该根据文件的实际格式来指定
+			formData.append('audio', new Blob([audioBlob], { type: 'audio/mpeg' })); // 假设音频是MP3
+			console.log('getWAVBlob', audioBlob)
 		}
 
 		function downloadWAV() {
-			const WAVBlob = recorder.downloadWAV()
-			console.log('downloadWAV', WAVBlob)
+			const audioBlob = recorder.downloadWAV()
+			console.log('downloadWAV', audioBlob)
 		}
 
 		function playAudio() {
